@@ -1,0 +1,15 @@
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\bin\Debug\ReadTXT2.exe.config
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\bin\Debug\ReadTXT2.exe
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\bin\Debug\ReadTXT2.pdb
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.6.csprojResolveAssemblyReference.cache
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.AboutThis.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.Read_TXT.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.Form_Find.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.Form_Test.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.Properties.Resources.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.6.csproj.GenerateResource.Cache
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.exe
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.pdb
+D:\Visual_Studio_2012\C#\[Za-Ra]\ReadTXT\ReadTXT2.6\ReadTXT2\bin\Debug\ReadTXT2.exe.config
+D:\Visual_Studio_2012\C#\[Za-Ra]\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.exe
+D:\Visual_Studio_2012\C#\[Za-Ra]\ReadTXT\ReadTXT2.6\ReadTXT2\obj\Debug\ReadTXT2.pdb

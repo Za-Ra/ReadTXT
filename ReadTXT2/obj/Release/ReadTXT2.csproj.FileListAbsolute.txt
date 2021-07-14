@@ -1,0 +1,11 @@
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\bin\Release\ReadTXT2.exe.config
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\bin\Release\ReadTXT2.exe
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\bin\Release\ReadTXT2.pdb
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.Read_TXT.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.Properties.Resources.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.csproj.GenerateResource.Cache
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.exe
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.pdb
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.csprojResolveAssemblyReference.cache
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.Form_Test.resources
+D:\Visual_Studio_2012\C#\ReadTXT\ReadTXT2\ReadTXT2\obj\Release\ReadTXT2.AboutThis.resources
