@@ -12,40 +12,55 @@ using System.Runtime.InteropServices;
 using System.Windows.Documents; //// in PresentationFramework & PresentationCore & WindowsBase & SystemXaml
 //using System.Windows.Documents.TextPointer; //// in PresentationFramework
 using System.Drawing.Printing;
-
+using ReadTXT2;
 
 namespace ReadTXT2
 {
     public partial class Read_TXT : Form
     {
-        ///
+        /// <summary>
         /// 使用系統 kernel32.dll 進行轉換
-        ///
+        /// </summary>
+
         private const int LocaleSystemDefault = 0x0800;
         private const int LcmapSimplifiedChinese = 0x02000000;
         private const int LcmapTraditionalChinese = 0x04000000;
 
+        /// <summary>
+        /// 使用OS的kernel.dll做為簡繁轉換工具。
+        /// <para>只要有裝OS就可以使用，不用額外引用dll，但只能做逐字轉換，無法進行詞意的轉換</para>
+        /// <para>所以無法將電腦轉成計算機</para>
+        /// </summary>
         [DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern int LCMapString(int locale, int dwMapFlags, string lpSrcStr, int cchSrc,
                                               [Out] string lpDestStr, int cchDest);
         /// <summary>
-        ///  Import end
+        /// Import end
         /// </summary>
 
 
         public static TextBox targetText ;
         public static Read_TXT ReadTxtFindWord;
 
+        public Menu TopMenu;
+
         public Read_TXT()
         {
+            
             ReadTxtFindWord = this;
             InitializeComponent();
-            //this.KeyDown += new KeyEventHandler(Form_KeyDown);
             if (!this.toolStripMenuItem_State.Enabled)
             {
                 this.statusStrip_Botton.Visible = false;
             }
             this.statusStrip_Botton.Visible = toolStripMenuItem_State.Checked;
+            TopMenu = new ReadTXT2.Menu(richTextBox_Text);
+
+            ///// This step make Drag Drop will not crate a icon on text inside !!!!
+            richTextBox_Text.EnableAutoDragDrop = false;
+            richTextBox_Text.AllowDrop = true;
+            richTextBox_Text.DragDrop += File_DragDrop;
+            
         }
 
         private void File_DragEnter(object sender, DragEventArgs e)
@@ -67,8 +82,10 @@ namespace ReadTXT2
 
             this.Text = files[0];
 
-            System.IO.StreamReader StreamReaderFile =
-                new System.IO.StreamReader(files[0], System.Text.Encoding.Default);
+            StreamReader StreamReaderFile_EncodingStyle = new StreamReader(files[0], true);
+
+            StreamReader StreamReaderFile =
+                new StreamReader(files[0], StreamReaderFile_EncodingStyle.CurrentEncoding);
 
             RichTextBox TextTempBox = new RichTextBox();
             while ((line = StreamReaderFile.ReadLine()) != null)
@@ -79,72 +96,6 @@ namespace ReadTXT2
             StreamReaderFile.Close();
             this.richTextBox_Text.Text = TextTempBox.Text;
         }
-
-        // Hot keys handler
-        //void Form_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    ToolStripMenuItem_Recovery.Enabled = true;
-        //    switch (e.KeyCode)
-        //    {
-        //        case Keys.F5:
-        //            ToolStripMenuItem_DateTime_Click(sender, e);
-        //            break;
-        //        case Keys.F3:
-        //            ToolStripMenuItem_FindNext_Click(sender, e);
-        //            break;
-        //        case Keys.Delete:
-        //            ToolStripMenuItem_Delete_Click(sender, e);
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    //if (e.Control)
-        //    //{
-        //    //    switch (e.KeyCode)
-        //    //    {
-        //    //        case Keys.N:
-        //    //            ToolStripMenuItem_FileNewCreate_Click(sender, e);
-        //    //            break;
-        //    //        case Keys.O:
-        //    //            ToolStripMenuItem_FileOpen_Click(sender, e);
-        //    //            break;
-        //    //        case Keys.S:
-        //    //            ToolStripMenuItem_FileSave_Click(sender, e);
-        //    //            break;
-        //    //        //case Keys.Z:
-        //    //        //    ToolStripMenuItem_Recovery_Click(sender, e);
-        //    //        //    break;
-        //    //        //case Keys.X:
-        //    //        //    ToolStripMenuItem_Cut_Click(sender, e);
-        //    //        //    break;
-        //    //        //case Keys.C:
-        //    //        //    ToolStripMenuItem_Copy_Click(sender, e);
-        //    //        //    break;
-
-        //    //        //case Keys.V:
-        //    //        //    ToolStripMenuItem_Past_Click(sender, e);
-        //    //        //    break;
-                    
-        //    //        //case Keys.A:
-        //    //        //    ToolStripMenuItem_SelectAll_Click(sender, e);
-        //    //        //    break;
-
-        //    //        //case Keys.F:
-        //    //        //    ToolStripMenuItem_FindTarget_Click(sender, e);
-        //    //        //    break;
-
-        //    //        //case Keys.H:
-        //    //        //    ToolStripMenuItem_Replace_Click(sender, e);
-        //    //        //    break;
-
-        //    //        default:
-        //    //            break;
-
-        //    //    }
-
-        //    //}
-
-        //}
 
         /// <summary>
         /// TraditionalChinese Converter Tool Code;
@@ -216,167 +167,99 @@ namespace ReadTXT2
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void ToolStripMenuItem_FileNewCreate_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_Function_Click(object sender, EventArgs e)
         {
-            this.Text = "Read TXT";
-            this.richTextBox_Text.Text = "";
-        }
+            ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
 
-        private void ToolStripMenuItem_FileOpen_Click(object sender, EventArgs e)
-        {
-            // Create an instance of the open file dialog box.
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            // Set filter options and filter index.
-            openFileDialog.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
-            openFileDialog.FilterIndex = 1;
-            //openFileDialog1.Multiselect = true;
-
-            // Call the ShowDialog method to show the dialog box.
-            //DialogResult userClickedOK = openFileDialog1.ShowDialog();
-
-            // Process input if the user clicked OK.
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            switch(TSMI.Name)
             {
-                this.Text = openFileDialog.FileName;
-                this.richTextBox_Text.Text = "";
-                // Open the selected file to read.
-                //System.IO.Stream fileStream = openFileDialog1.File.OpenRead();
-                System.IO.Stream fileStream = openFileDialog.OpenFile();
-                System.IO.StreamReader reader = new System.IO.StreamReader(fileStream, System.Text.Encoding.Default);
-                string line;
-                RichTextBox TextTempBox = new RichTextBox();
-                while ((line = reader.ReadLine()) != null)
-                {
-                    TextTempBox.Text += line + "\r\n";
-                }
+                case "ToolStripMenuItem_FileNewCreate":
+                    this.Text = "Read TXT";
+                    this.richTextBox_Text.Text = "";
+                    break;
 
-                fileStream.Close();
-                this.richTextBox_Text.Text = TextTempBox.Text;
+                case "ToolStripMenuItem_FileOpen":
+                    string getFileName = "";
+                    RichTextBox RTB = TopMenu.M_File.File_Open(ref getFileName);
+                    if (RTB != null)
+                    {
+                        this.richTextBox_Text.Text = RTB.Text;
+                        this.Text = getFileName;
+                    }
+                    break;
 
-            }
-        }
+                case "ToolStripMenuItem_FileSave":
+                    this.Text = TopMenu.M_File.Save_File(this.Text, this.richTextBox_Text);
+                    break;
 
-        private void ToolStripMenuItem_FileSave_Click(object sender, EventArgs e)
-        {
-            if (this.Text == "Read TXT")
-            {
-                toolStripMenuItem_FileSaveNew_Click(sender, e);
-            }
-            else
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                Stream myStream;
-                saveFileDialog.FileName = this.Text;
-                if ((myStream = saveFileDialog.OpenFile()) != null)
-                {
-                    byte[] tmp = Encoding.Default.GetBytes(richTextBox_Text.Text);
-                    myStream.Write(tmp, 0, tmp.Length);
-                    // Code to write the stream goes here.
-                    myStream.Close();
-                }
+                case "toolStripMenuItem_FileSaveNew":
+                    this.Text = TopMenu.M_File.Save_New_File(this.Text, this.richTextBox_Text);
+                    break;
+
+                case "ToolStripMenuItem_Exit":
+                    this.Close();
+                    break;
             }
 
+
         }
 
-        private void toolStripMenuItem_FileSaveNew_Click(object sender, EventArgs e)
-        {
-            Stream myStream;
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-            saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            saveFileDialog.FilterIndex = 1;
-            saveFileDialog.RestoreDirectory = true;
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                this.Text = saveFileDialog.FileName;
-                if ((myStream = saveFileDialog.OpenFile()) != null)
-                {
-                    byte[] tmp = Encoding.Default.GetBytes(richTextBox_Text.Text);
-                    myStream.Write(tmp, 0, tmp.Length);
-                    // Code to write the stream goes here.
-                    myStream.Close();
-                }
-            }
-        }
-
-        private void ToolStripMenuItem_Exit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-       
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void ToolStripMenuItem_Edit_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem_Edit_Function_Click(object sender, EventArgs e)
         {
+            ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
 
-        }
-
-
-
-        private void ToolStripMenuItem_Recovery_Click(object sender, EventArgs e)
-        {
-            // Determine if last operation can be undone in text box.   
-            if (richTextBox_Text.CanUndo == true)
+            switch (TSMI.Name)
             {
-                // Undo the last operation.
-                richTextBox_Text.Undo();
-                // Clear the undo buffer to prevent last action from being redone.
-                richTextBox_Text.ClearUndo();
+                #region Normal Function
+                case "ToolStripMenuItem_Recovery":
+                case "ToolStripMenuItem_Mouse_R_Recover":
+                    this.richTextBox_Text = TopMenu.M_Edit.Recovery(this.richTextBox_Text);
+                    break;
+
+                case "ToolStripMenuItem_Cut":
+                case "ToolStripMenuItem_Mouse_R_Cut":
+                    this.richTextBox_Text = TopMenu.M_Edit.Cut(this.richTextBox_Text);
+                    break;
+
+                case "ToolStripMenuItem_Copy":
+                case "ToolStripMenuItem_Mouse_R_Copy":
+                    this.richTextBox_Text = TopMenu.M_Edit.Copy(this.richTextBox_Text);
+                    break;
+
+                case "ToolStripMenuItem_Past":
+                case "ToolStripMenuItem_Mouse_R_Past":
+                    this.richTextBox_Text = TopMenu.M_Edit.Past(this.richTextBox_Text);
+                    break;
+
+                case "ToolStripMenuItem_Delete":
+                    this.richTextBox_Text = TopMenu.M_Edit.Delete(this.richTextBox_Text);
+                    break;
+
+                case "ToolStripMenuItem_Mouse_R_SelectAll":
+                    this.richTextBox_Text.SelectAll();
+                    break;
+                #endregion
+
+
+
+
+
+
+
+
+                case "ToolStripMenuItem_DateTime":
+                    this.richTextBox_Text = TopMenu.M_Edit.Show_DateTime(this.richTextBox_Text);
+                    break;
+
+
             }
-        }
 
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private void ToolStripMenuItem_Cut_Click(object sender, EventArgs e)
-        {
-            //// Windows Already Have These Function!!
-
-            //// Ensure that text is currently selected in the text box.   
-            if (richTextBox_Text.SelectedText != "")
-                // Cut the selected text in the control and paste it into the Clipboard.
-                richTextBox_Text.Cut();
 
         }
-
-        private void ToolStripMenuItem_Copy_Click(object sender, EventArgs e)
-        {
-            //// Windows Already Have These Function!!
-
-            //// Ensure that text is selected in the text box.   
-            if (richTextBox_Text.SelectionLength > 0)
-                // Copy the selected text to the Clipboard.
-                richTextBox_Text.Copy();
-        }
-
-        private void ToolStripMenuItem_Past_Click(object sender, EventArgs e)
-        {
-            //// Windows Already Have These Function!!
-
-            //// Determine if there is any text in the Clipboard to paste into the text box.
-            if (Clipboard.GetDataObject().GetDataPresent(DataFormats.Text) == true)
-            {
-                // Determine if any text is selected in the text box.
-                if (richTextBox_Text.SelectionLength > 0)
-                {
-                    // Ask user if they want to paste over currently selected text.
-                    //if (MessageBox.Show("Do you want to paste over current selection?", "Cut Example", MessageBoxButtons.YesNo) == DialogResult.No)
-                        // Move selection to the point after the current selection and paste.
-                        richTextBox_Text.SelectionStart = richTextBox_Text.SelectionStart + richTextBox_Text.SelectionLength;
-                }
-                // Paste current text in Clipboard into text box.
-                richTextBox_Text.Paste();
-            }
-        }
-
-        private void ToolStripMenuItem_Delete_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void ToolStripMenuItem_FindTarget_Click(object sender, EventArgs e)
@@ -406,16 +289,6 @@ namespace ReadTXT2
             // Code here to search your text and highlight a string.
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        private void ToolStripMenuItem_SelectAll_Click(object sender, EventArgs e)
-        {
-            this.richTextBox_Text.SelectAll();
-        }
-
-        private void ToolStripMenuItem_DateTime_Click(object sender, EventArgs e)
-        {
-            this.richTextBox_Text.Text = DateTime.Now.ToString() ;
-        }
 
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
