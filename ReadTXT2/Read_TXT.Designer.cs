@@ -97,7 +97,6 @@
             this.richTextBox_Text.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox_Text.ForeColor = System.Drawing.Color.Silver;
             this.richTextBox_Text.Location = new System.Drawing.Point(0, 24);
-            this.richTextBox_Text.MaxLength = 0;
             this.richTextBox_Text.Name = "richTextBox_Text";
             this.richTextBox_Text.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
             this.richTextBox_Text.Size = new System.Drawing.Size(663, 653);
@@ -430,16 +429,16 @@
             this.ToolStripMenuItem_AutoNextLine.Checked = true;
             this.ToolStripMenuItem_AutoNextLine.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ToolStripMenuItem_AutoNextLine.Name = "ToolStripMenuItem_AutoNextLine";
-            this.ToolStripMenuItem_AutoNextLine.Size = new System.Drawing.Size(142, 22);
+            this.ToolStripMenuItem_AutoNextLine.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_AutoNextLine.Text = "自動換行(W)";
             this.ToolStripMenuItem_AutoNextLine.Click += new System.EventHandler(this.ToolStripMenuItem_AutoNextLine_Click);
             // 
             // ToolStripMenuItem_Font
             // 
             this.ToolStripMenuItem_Font.Name = "ToolStripMenuItem_Font";
-            this.ToolStripMenuItem_Font.Size = new System.Drawing.Size(142, 22);
+            this.ToolStripMenuItem_Font.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_Font.Text = "字型(F)...";
-            this.ToolStripMenuItem_Font.Click += new System.EventHandler(this.ToolStripMenuItem_Font_Click);
+            this.ToolStripMenuItem_Font.Click += new System.EventHandler(this.ToolStripMenuItem_Option_Function_Click);
             // 
             // ToolStripMenuItem_Color
             // 
@@ -447,40 +446,40 @@
             this.ToolStripMenuItem_ColorFont,
             this.ToolStripMenuItem_ColorBackGround});
             this.ToolStripMenuItem_Color.Name = "ToolStripMenuItem_Color";
-            this.ToolStripMenuItem_Color.Size = new System.Drawing.Size(142, 22);
+            this.ToolStripMenuItem_Color.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_Color.Text = "色彩(C)";
             // 
             // ToolStripMenuItem_ColorFont
             // 
             this.ToolStripMenuItem_ColorFont.BackColor = System.Drawing.SystemColors.Control;
             this.ToolStripMenuItem_ColorFont.Name = "ToolStripMenuItem_ColorFont";
-            this.ToolStripMenuItem_ColorFont.Size = new System.Drawing.Size(98, 22);
+            this.ToolStripMenuItem_ColorFont.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_ColorFont.Text = "前景";
-            this.ToolStripMenuItem_ColorFont.Click += new System.EventHandler(this.ToolStripMenuItem_ColorFont_Click);
+            this.ToolStripMenuItem_ColorFont.Click += new System.EventHandler(this.ToolStripMenuItem_Option_Function_Click);
             // 
             // ToolStripMenuItem_ColorBackGround
             // 
             this.ToolStripMenuItem_ColorBackGround.Name = "ToolStripMenuItem_ColorBackGround";
-            this.ToolStripMenuItem_ColorBackGround.Size = new System.Drawing.Size(98, 22);
+            this.ToolStripMenuItem_ColorBackGround.Size = new System.Drawing.Size(152, 22);
             this.ToolStripMenuItem_ColorBackGround.Text = "背景";
-            this.ToolStripMenuItem_ColorBackGround.Click += new System.EventHandler(this.ToolStripMenuItem_ColorBackGround_Click);
+            this.ToolStripMenuItem_ColorBackGround.Click += new System.EventHandler(this.ToolStripMenuItem_Option_Function_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // ToSimplifiedToolStripMenuItem1
             // 
             this.ToSimplifiedToolStripMenuItem1.Name = "ToSimplifiedToolStripMenuItem1";
-            this.ToSimplifiedToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.ToSimplifiedToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.ToSimplifiedToolStripMenuItem1.Text = "繁->簡";
             this.ToSimplifiedToolStripMenuItem1.Click += new System.EventHandler(this.ToSimplifiedToolStripMenuItem1_Click);
             // 
             // ToTraditionalToolStripMenuItem1
             // 
             this.ToTraditionalToolStripMenuItem1.Name = "ToTraditionalToolStripMenuItem1";
-            this.ToTraditionalToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.ToTraditionalToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.ToTraditionalToolStripMenuItem1.Text = "簡->繁";
             this.ToTraditionalToolStripMenuItem1.Click += new System.EventHandler(this.ToTraditionalToolStripMenuItem1_Click);
             // 

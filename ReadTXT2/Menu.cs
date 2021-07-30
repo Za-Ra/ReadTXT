@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
+using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -210,6 +210,38 @@ namespace ReadTXT2
 
     public class Menu_Option
     {
+
+
+        public Font FontChange(Font P_Font)
+        {
+            FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = P_Font;
+
+            DialogResult result = fontDialog.ShowDialog();
+            //See if OK was pressed.
+            if (result == DialogResult.OK)
+            {
+                // Get Font.
+                P_Font = fontDialog.Font;
+            }
+            return P_Font;
+        }
+
+        public Color ColorChange(Color Original_Color)
+        {
+            Color Choosed_Color = Original_Color;
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = Original_Color;
+            // Show the color dialog.
+            DialogResult result = colorDialog.ShowDialog();
+            // See if user pressed ok.
+            if (result == DialogResult.OK)
+            {
+                // Set form background to the selected color.
+                Choosed_Color = colorDialog.Color;
+            }
+            return Choosed_Color;
+        }
 
     }
 

@@ -238,15 +238,17 @@ namespace ReadTXT2
                     this.richTextBox_Text = TopMenu.M_Edit.Delete(this.richTextBox_Text);
                     break;
 
+                case "ToolStripMenuItem_SelectAll":
                 case "ToolStripMenuItem_Mouse_R_SelectAll":
                     this.richTextBox_Text.SelectAll();
                     break;
                 #endregion
 
 
+                #region Find Target Window
 
 
-
+                #endregion
 
 
 
@@ -294,6 +296,31 @@ namespace ReadTXT2
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
+
+        private void ToolStripMenuItem_Option_Function_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem TSMI = (ToolStripMenuItem)sender;
+
+            switch (TSMI.Name)
+            {
+
+                case "ToolStripMenuItem_Font":
+                    this.Font = TopMenu.M_Option.FontChange(this.Font);
+                    break;
+
+                case "ToolStripMenuItem_ColorFont":
+                    this.richTextBox_Text.ForeColor = TopMenu.M_Option.ColorChange(this.richTextBox_Text.ForeColor);
+                    break;
+                case "ToolStripMenuItem_ColorBackGround":
+                    this.richTextBox_Text.BackColor = TopMenu.M_Option.ColorChange(this.richTextBox_Text.BackColor);
+                    break;
+
+
+            }
+        }
+
+
+
         private void ToolStripMenuItem_AutoNextLine_Click(object sender, EventArgs e)
         {
             this.richTextBox_Text.WordWrap = !this.richTextBox_Text.WordWrap;
@@ -306,50 +333,6 @@ namespace ReadTXT2
                 this.statusStrip_Botton.Visible = false;
             }
             this.statusStrip_Botton.Visible = toolStripMenuItem_State.Checked;
-        }
-
-        private void ToolStripMenuItem_Font_Click(object sender, EventArgs e)
-        {
-            FontDialog fontDialog = new FontDialog();
-
-            DialogResult result = fontDialog.ShowDialog();
-            //See if OK was pressed.
-            if (result == DialogResult.OK)
-            {
-                // Get Font.
-                Font font = fontDialog.Font;
-                this.richTextBox_Text.Font = font;
-            }
-        }
-
-        ColorDialog colorDialog = new ColorDialog();
-        private void ToolStripMenuItem_ColorFont_Click(object sender, EventArgs e)
-        {
-            //ColorDialog colorDialog1 = new ColorDialog();
-            // Show the color dialog.
-            DialogResult result = colorDialog.ShowDialog();
-            // See if user pressed ok.
-            if (result == DialogResult.OK)
-            {
-                // Set form background to the selected color.
-                this.richTextBox_Text.ForeColor = colorDialog.Color;
-            }
-
-
-
-        }
-
-        private void ToolStripMenuItem_ColorBackGround_Click(object sender, EventArgs e)
-        {
-            //ColorDialog colorDialog = new ColorDialog();
-            // Show the color dialog.
-            DialogResult result = colorDialog.ShowDialog();
-            // See if user pressed ok.
-            if (result == DialogResult.OK)
-            {
-                // Set form background to the selected color.
-                this.richTextBox_Text.BackColor = colorDialog.Color;
-            }
         }
 
 
